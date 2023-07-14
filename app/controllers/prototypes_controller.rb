@@ -31,7 +31,13 @@ class PrototypesController < ApplicationController
   def update
     @prototype = Prototype.find(params[:id])
     @prototype.update(prototype_params)
-    redirect_to '/'
+    
+    if @prototype.save
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+    
   end
 
   def destroy
